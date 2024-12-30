@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+<div class="Background"></div>
+  <!-- Main Hero Section -->
+  <header class="hero">
+    <div class="overlay">
+     
+      <!-- Button that navigates to research.html -->
+      <a href="page2.html" class="get-started-btn">Get Started</a>
+    </div>
+    <div class="container">
+      <h1>Welcome to Scientific Research Hub</h1>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #000;
+        }
+        #particles-js {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <script>
+        particlesJS("particles-js", {
+            particles: {
+                number: {
+                    value: 100,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                shape: {
+                    type: "circle"
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+3. تأثير "Glowing Orbit" حول الشعار
+html
+نسخ الكود
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حلقة متوهجة</title>
+    <style>
+        @keyframes glowingOrbit {
+            0% {
+                transform: rotate(0deg);
+                border-color: #ff00ff;
+            }
+            100% {
+                transform: rotate(360deg);
+                border-color: #0000ff;
+            }
+        }
+        /* .logo-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .logo {
+            font-size: 50px;
+            font-weight: bold; */
+        
+        .orbit {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 4px solid #ff00ff;
+            border-radius: 50%;
+            animation: glowingOrbit 5s infinite linear;
+        }
+    </style>
+  
+  </header>
+  <body class="homepage">
+  
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scientific Research Steps</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* General styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      color: #0077b6;
+    }
+
+    h2 {
+      color: #0077b6;
+    }
+
+    #search-section {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    /* Flash Cards Section */
+    .flash-cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      justify-items: center;
+      margin-top: 40px;
+    }
+
+    .flash-card {
+      width: 100%;
+      max-width: 300px;
+      height: 300px;
+      cursor: pointer;
+      perspective: 1000px; /* يجعل الكارت يبدو ثلاثي الأبعاد */
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d; /* يتيح دوران العنصر */
+      transition: transform 0.6s; /* تأثير الدوران */
+    }
+
+    .flash-card:hover .card-inner {
+      transform: rotateY(180deg); /* قلب الكارت عند التمرير عليه */
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden; /* يخفي الوجه الخلفي عند التدوير */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2em;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .card-front {
+      background-color: #0077b6;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card-back {
+      background-color: #e8a9d4;
+      transform: rotateY(180deg); /* تدوير الوجه الخلفي */
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card-front h3,
+    .card-back p {
+      margin: 0;
+      font-size: 1.3em;
+    }
+
+    .get-started-btn {
+      background-color: #ff9900;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .get-started-btn:hover {
+      background-color: #e68900;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Search Section (At the top of the page) -->
+  <section id="search-section">
+    <h2>Search Scientific Topics</h2>
+    <form action="https://www.google.com/search" method="get" target="_blank">
+      <input type="text" name="q" placeholder="Search scientific topics..." required>
+      <button type="submit">Search</button>
+    </form>
+  </section>
+
+  <main>
+    <section id="introduction">
+      <h2>What is Scientific Research?</h2>
+      <p>
+        Scientific research is the process of systematic investigation, designed to discover new facts, develop new theories, and establish scientific knowledge. It is the foundation of progress in our world, addressing the most pressing challenges of humanity, from health to sustainability, technology to education.
+      </p>
+      <p>
+        Without scientific research, we would not have the advances that shape our modern world. It provides us with the tools to understand the universe around us, solve problems, and create innovations that improve the quality of life.
+      </p>
+      
+      <button onclick="showResearchSteps()" id="toggle-button">Learn the Steps of Scientific Research</button>
+    </section>
+    
+
+    <!-- Flash Cards Section (Hidden initially) -->
+    <section id="research-steps" style="display:none;">
+      <h2>Steps of Scientific Research</h2>
+      <div class="flash-cards-container">
+        <!-- Flash Card 1: Identify the Problem -->
+        <div class="flash-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>1. Identify the Problem</h3>
+            </div>
+            <div class="card-back">
+              <p>Start by clearly defining the problem or research question you want to address. This is the foundation of your entire study.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flash Card 2: Conduct Background Research -->
+        <div class="flash-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>2. Conduct Background Research</h3>
+            </div>
+            <div class="card-back">
+              <p>Gather information from books, journals, articles, and other credible sources to understand existing knowledge on the topic.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flash Card 3: Formulate a Hypothesis -->
+        <div class="flash-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>3. Formulate a Hypothesis</h3>
+            </div>
+            <div class="card-back">
+              <p>Based on your background research, propose a testable hypothesis or prediction that can be investigated through experiments or data collection.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flash Card 4: Design and Perform Experiments -->
+        <div class="flash-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>4. Design and Perform Experiments</h3>
+            </div>
+            <div class="card-back">
+              <p>Create an experiment or research methodology that will allow you to test your hypothesis under controlled conditions.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flash Card 5: Analyze Data -->
+        <div class="flash-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>5. Analyze Data</h3>
+            </div>
+            <div class="card-back">
+              <p>Collect, organize, and analyze the data gathered during your experiment. Look for trends and relationships that support or refute your hypothesis.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flash Card 6: Draw Conclusions -->
+        <div class="flash-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>6. Draw Conclusions</h3>
+            </div>
+            <div class="card-back">
+              <p>Based on your analysis, conclude whether your hypothesis was correct or if new theories need to be explored. Interpret the meaning of your findings.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flash Card 7: Communicate Results -->
+        <div class="flash-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>7. Communicate Results</h3>
+            </div>
+            <div class="card-back">
+              <p>Share your findings with the scientific community through research papers, presentations, and reports.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Function to show research steps section when button is clicked
+    function showResearchSteps() {
+      document.getElementById('research-steps').style.display = 'block';
+      document.getElementById('introduction').style.display = 'none';
+    }
+  </script>
+
+
+
+    <!-- Dropdown for courses -->
+    <section class="dropdown">
+      <h2>Learn How to Write and Publish a Research Paper</h2>
+      <select onchange="window.open(this.value, '_blank')">
+        <option value="#">Select a course</option>
+        <option value="https://www.coursera.org/learn/research-paper-writing">Research Paper Writing - Coursera</option>
+        <option value="https://www.edx.org/course/how-to-write-a-research-paper">How to Write a Research Paper - edX</option>
+        <option value="https://www.udemy.com/course/academic-writing-and-research/">Academic Writing and Research - Udemy</option>
+        <option value="https://www.futurelearn.com/courses/research-papers">Research Paper Writing - FutureLearn</option>
+        <option value="https://www.saylor.org/courses/intro-to-research-methods/">Introduction to Research Methods - Saylor Academy</option>
+        <option value="https://www.open.edu/openlearn/">OpenLearn - The Open University</option>
+        <option value="https://online.gatech.edu/courses">Georgia Tech Online Learning</option>
+        <option value="https://ocw.mit.edu/">MIT OpenCourseware</option>
+        <option value="https://online.stanford.edu/free-courses">Stanford Online</option>
+        <option value="https://online.yale.edu/courses">Yale Online Learning</option>
+          <option value="https://www.coursera.org/learn/research-methods">Research Methods - Coursera (University of California, Irvine)</option>
+  <option value="https://www.edx.org/learn/research">Research Methods - edX (University of California, Irvine)</option>
+  <option value="https://www.udemy.com/course/scientific-method-in-research-methodology/">Scientific Research Methods: A Step-by-Step Guide - Udemy (365 Careers Online)</option>
+  <option value="https://www.udemy.com/course/research-methods/">Research Methodology: From A to Z - Udemy (Dr. Vivek Bindra)</option>
+  <option value="https://www.khanacademy.org/science">Science Section - Khan Academy</option>
+  <option value="https://www.futurelearn.com/courses/research-methods-in-business">Research Methods for Business and Management - FutureLearn (University of London)</option>
+  <option value="https://www.ed2go.com/">Research Methods - ed2Go</option>
+  <option value="https://alison.com/course/introduction-to-research-methods-and-frameworks">Introduction to Research - Alison</option>
+  <option value="https://www.open.edu/openlearn/">OpenLearn - The Open University</option>
+  <option value="https://ocw.mit.edu/">MIT OpenCourseware</option>
+  <option value="https://online.stanford.edu/free-courses">Stanford Online</option>
+      </select>
+    </section>
+
+    <section id="back-to-home">
+      <a href="page3.html" class="get-started-btn">projects</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Scientific Research Hub. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Function to show the research steps section
+    function showResearchSteps() {
+      const section = document.getElementById('research-steps');
+      section.style.display = 'block';
+    }
+
+    // Function to toggle individual flash card details
+    function toggleCard(cardNumber) {
+      const details = document.getElementById(`card${cardNumber}-details`);
+      details.style.display = details.style.display === 'none' ? 'block' : 'none';
+    }
+    function toggleResearchSteps() {
+  const researchSteps = document.getElementById('research-steps');
+  const button = document.getElementById('toggle-button');
+
+  if (researchSteps.style.display === 'none') {
+    researchSteps.style.display = 'block'; // عرض القسم
+    button.textContent = 'Hide the Steps of Scientific Research'; // تغيير نص الزر
+  } else {
+    researchSteps.style.display = 'none'; // إخفاء القسم
+    button.textContent = 'Learn the Steps of Scientific Research'; // إعادة النص الأصلي
+  }
+}
+
+  </script>
+
+</body>
+</html>

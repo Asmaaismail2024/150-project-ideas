@@ -1,0 +1,247 @@
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  ba
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  #search-section {
+    background-color: #0077b6;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  #search-section h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+  
+  #search-section form {
+    margin-top: 10px;
+  }
+  
+  #search-section input {
+    padding: 10px;
+    font-size: 1.2em;
+    width: 60%;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  #search-section button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #ff9900;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #search-section button:hover {
+    background-color: #e68900;
+  }
+  
+  main {
+    padding: 40px 20px;
+  }
+  
+  #introduction {
+    margin-bottom: 40px;
+  }
+  
+  #introduction h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  
+  #introduction p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    padding: 15px 30px;
+    background-color: #ff9900;
+    color: white;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #e68900;
+  }
+  
+  #research-steps {
+    margin-top: 40px;
+  }
+  
+  #research-steps h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  
+  #research-steps ol {
+    font-size: 1.2em;
+    list-style-position: inside;
+    margin-left: 20px;
+  }
+  
+  #research-steps li {
+    margin-bottom: 15px;
+  }
+  
+  #back-to-home {
+    margin-top: 40px;
+  }
+  
+  .get-started-btn {
+    position: absolute; /* التحكم في المكان */
+    bottom: 20px; /* المسافة من الأسفل */
+    right: 20px; /* المسافة من اليمين */
+    background-color: #800080; /* لون الخلفية */
+    color: #fff; /* لون النص */
+    border: none; /* إزالة الحدود */
+    padding: 15px 30px; /* حجم الزر */
+    font-size: 1.2rem; /* حجم النص */
+    border-radius: 12px; /* زوايا دائرية */
+    cursor: pointer; /* مؤشر الفأرة */
+    box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #800080; /* تأثير الإضاءة */
+    animation: glow 2s infinite; /* تأثير الحركة */
+    transition: all 0.3s ease-in-out;
+    
+
+  }
+  
+  .get-started-btn:hover {
+    background-color: #ff00ff; /* تغيير لون الخلفية */
+    color: #000; /* تغيير لون النص */
+    transform: scale(1.1); /* تكبير الزر */
+  }
+  .get-started-btn:active {
+    transform: scale(0.95); /* تصغير الزر عند الضغط */
+    box-shadow: 0 0 5px #ff00ff; /* تقليل تأثير الإضاءة */
+  }
+  @keyframes glow {
+    0% {
+      box-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #800080;
+    }
+    50% {
+      box-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #800080;
+    }
+    100% {
+      box-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #800080;
+    }
+  }
+  .logo {
+    position: absolute;
+    width: 300px; /* حجم الشعار */
+    height: auto;
+    animation: pulse 3s infinite; /* حركة النبض */
+    display: flex;
+    text-align: center;
+    justify-content: center;
+  }
+  
+  /* تأثير النبض */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  
+  
+  
+  
+  /* استهداف الصفحة الأولى فقط باستخدام الكلاس "homepage" */
+.homepage {
+  background-image: url('background\ of\ web.jpg'); /* مسار الصورة */
+  background-size: cover; /* ضبط حجم الخلفية لتغطية الشاشة بالكامل */
+  background-position: center; /* ضبط الصورة في منتصف الصفحة */
+  background-repeat: no-repeat; /* منع تكرار الصورة */
+  min-height: 100vh; /* تأكد من تغطية الشاشة بالكامل */
+  margin: 0; /* إزالة المسافات الافتراضية */
+}/* تصميم الصفحة */
+
+
+/* تصميم العنوان */
+.container h1 {
+  font-size: 3rem; /* حجم النص */
+  font-family: 'Poppins', sans-serif; /* خط إبداعي */
+  text-align: center; /* النص في المنتصف */
+  color: #fff;
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #800080, 0 0 40px #800080; /* تأثير الإضاءة */
+  animation: glow 2s infinite; /* تأثير متحرك */
+  align-items: center; /* التوسيط عموديًا */
+    justify-content: center
+}
+
+/* تأثير اللمعان */
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #800080, 0 0 30px #800080;
+  }
+  50% {
+    text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #800080, 0 0 50px #800080;
+  }
+  100% {
+    text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #800080, 0 0 30px #800080;
+  }
+}
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+      opacity: 0.5;
+  }
+  100% {
+      transform: scale(1.5);
+      opacity: 0;
+  }
+}
+.pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid #ff00ff;
+  animation: pulse 3s infinite;
+  transform: translate(-50%, -50%);
+}
+.magnifying-glass {
+  width: 150px;
+  height: 150px;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  position: absolute;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+}
+.magnifying-glass:hover {
+  transform: scale(2);
+}
+
+

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Categories</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Basic Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 2.5em;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Filter Section */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .filters select, .filters button {
+            padding: 10px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: #0077b6;
+            color: white;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .filters button {
+            background-color: #ff9900;
+        }
+
+        .filters button:hover {
+            background-color: #e68900;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            justify-items: center;
+            padding: 30px;
+        }
+
+        /* Project Cards */
+        .project-card {
+            width: 100%;
+            max-width: 320px;
+            cursor: pointer;
+            background-color: #0077b6;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transform: scale(1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .project-card {
+            display: none; /* المشاريع مخفية افتراضيًا */
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-card-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .project-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .project-card .btn {
+            background-color: #ff9900;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            text-decoration: none;
+        }
+
+        .project-card .btn:hover {
+            background-color: #e68900;
+        }
+
+        /* Modal Popup */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            text-align: center;
+            overflow-y: auto;
+        }
+
+        .modal-content h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .modal-content p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            padding: 10px 20px;
+            background-color: #ff9900;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background-color: #e68900;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    Project Categories
+</header>
+
+<!-- Filter Section with Categories -->
+<div class="filters">
+    <select id="categoryFilter">
+        <option value="all">All Projects</option>
+        <option value="EGSD">Energy: Sustainable Materials and Design (EGSD)</option>
+        <option value="ANIM">Animal Sciences (ANIM)</option>
+        <option value="BEHA">Behavioral and Social Sciences (BEHA)</option>
+        <option value="BCHM">Biochemistry (BCHM)</option>
+        <option value="BMED">Biomedical and Health Sciences (BMED)</option>
+        <option value="ENBM">Biomedical Engineering (ENBM)</option>
+        <option value="CELL">Cellular and Molecular Biology (CELL)</option>
+        <option value="CHEM">Chemistry (CHEM)</option>
+        <option value="CBIO">Computational Biology and Bioinformatics (CBIO)</option>
+        <option value="EAEV">Earth and Environmental Sciences (EAEV)</option>
+        <option value="EBED">Embedded Systems (EBED)</option>
+        <option value="ETSD">Engineering Technology: Statics and Dynamics (ETSD)</option>
+        <option value="ENEV">Environmental Engineering (ENEV)</option>
+        <option value="MATS">Materials Science (MATS)</option>
+        <option value="MCRO">Microbiology (MCRO)</option>
+        <option value="PLNT">Plant Sciences (PLNT)</option>
+        <option value="ROBO">Robotics and Intelligent Machines (ROBO)</option>
+        <option value="SOFT">Systems Software (SOFT)</option>
+        <option value="TECA">Technology Enhances the Arts (TECA)</option>
+        <option value="TMED">Translational Medical Science (TMED)</option>
+    </select>
+    <button onclick="filterProjects()">Apply Filter</button>
+</div>
+
+<!-- Projects Section -->
+<div id="projects">
+    <div class="project-card" data-category="EGSD">
+        <h3>1. Solar Chimney for Power and Desalinated Water Production</h3>
+        <p>
+            Problem:
+            • Water Scarcity and Energy Shortage in Arid Regions:
+            o Many arid and semi-arid regions face severe water scarcity and limited access to clean energy sources. These regions require innovative solutions to produce both electricity and fresh water using renewable resources, particularly solar energy, as they receive abundant sunlight year-round.
+        </p>
+        <button class="details-btn" onclick="toggleDetails(this)">Learn More</button>
+        <div class="extra-details" style="display:none;">
+            <p>
+                <b>Solution:</b><br>
+                • Solar Chimney System:<br>
+                o A solar chimney is a structure that uses solar energy to create a natural airflow, which can drive turbines to generate electricity. The same system can also be used for desalination by utilizing the residual heat to convert seawater into fresh water. This solution is both environmentally friendly and sustainable, offering a dual-purpose method to address both energy and water needs.
+                <br><br>
+                <b>Steps:</b><br>
+                1. Design and Build a Greenhouse:<br>
+                o Construct a greenhouse using transparent materials (like glass or plastic) to capture and concentrate solar heat. The greenhouse should have a slanted roof to allow for maximum sunlight exposure.<br>
+                2. Heat Collection and Airflow Creation:<br>
+                o The greenhouse heats the air inside it. As the air warms, it becomes lighter and begins to rise. This creates an upward flow of air that is directed towards the central chimney of the solar chimney system.<br>
+                3. Airflow is Channeled into a Central Chimney:<br>
+                o The warm air rises into a tall central chimney, which enhances the natural convection process. The hot air creates a low-pressure zone at the base of the chimney, intensifying the airflow.<br>
+                4. Energy Generation Using Turbines:<br>
+                o At the bottom of the chimney, turbines are placed. As the hot air rises, it drives the turbines, which in turn generate electricity. The turbines are connected to a generator to produce power.<br>
+                5. Desalination with Residual Heat:<br>
+                o The residual heat from the system is used for water desalination. In a connected desalination system, the heated air is used to evaporate seawater. The resulting vapor is condensed to produce fresh water.<br><br>
+                <b>Materials Used:</b><br>
+                • Greenhouse Materials: Transparent glass or plastic panels.<br>
+                • Chimney Structure: Tall, cylindrical chimney (metal, concrete, or other durable materials).<br>
+                • Turbines: Wind turbines that are designed to be driven by natural airflow.<br>
+                • Desalination System: Condensing and evaporating chambers, piping, and collection containers for desalinated water.<br>
+                <br>
+                <b>Research Paper:</b><br>
+                <a href="https://doi.org/10.1016/j.csite.2020.100687" target="_blank">Click here to read the full research paper</a>
+            </p>
+        </div>
+        <br>
+        <div class="project-card" data-category="EGSD">
+            <h3>
+                2-Solar Tracking Systems to Increase Solar Power Efficiency
+                </h3>
+            <p>
+                problem:
+                •	Low Efficiency of Static Solar Panels:
+                o	Traditional fixed solar panels are only able to collect energy efficiently when directly facing the sun, resulting in lower energy production throughout the day. This issue reduces the overall efficiency of solar energy generation, especially when sunlight is not available at optimal angles.
+                
+            </p>  
+            <button class="details-btn" onclick="toggleDetails(this)">Learn More</button>
+            <div class="extra-details" style="display:none;">
+                <p>
+                    <b>Solution:</b><br>
+                    •	Solar Tracking Systems:<br><br>
+                    o	Solar tracking systems are designed to move solar panels throughout the day to follow the sun's path. This increases the exposure to<br><br> sunlight, allowing the solar panels to generate more energy throughout the day by maintaining an optimal angle of incidence.
+
+                    <b>Steps:</b><br>
+                    1.	Install Solar Panels with Tracking Systems:<br>
+                      o	Solar panels are mounted on a tracking system (mechanical or electronic) that allows them to rotate and follow the movement of the sun.<br>
+                      2.	Program the Tracking Systems:<br>
+                      o	The system is programmed or configured to automatically adjust the panel’s position based on the sun’s trajectory throughout the day.<br>
+                      3.	Increase Solar Energy Collection Efficiency:<br>
+                    o	As the tracking system follows the sun, it increases the panel’s exposure to sunlight, significantly boosting the amount of solar energy captured compared to fixed-panel systems.<br>
+
+                    <b>Materials Used:</b><br>
+                    • 	Solar Panels: Photovoltaic panels to capture solar energy.<br>
+                    •	Tracking Systems: Mechanical or electronic systems to move and orient the panels.<br>
+                    •	Solar Sensors: Sensors to detect the position of the sun and provide feedback for optimal tracking.<br>
+                    
+                    <br>
+                    <b>Research Paper:</b><br>
+                    <a href="https://doi.org/10.1016/j.seta.2024.103879" target="_blank">Click here to read the full research paper</a>
+                </p></div>
+<br>
+<div class="project-card" data-category="EGSD">
+    <h3>3-Converting Organic Waste to Biogas (Biogas Production)</h3>
+    <p>
+        Problem:
+        •	Waste Management and Energy Shortage:
+        o	Many regions face challenges with managing organic waste (like food scraps, animal manure, and agricultural residues) and dealing with the lack of sustainable and renewable energy sources. The decomposition of organic waste in landfills releases methane, a potent greenhouse gas, into the atmosphere, contributing to environmental pollution.
+
+    </p>
+    <button class="details-btn" onclick="toggleDetails(this)">Learn More</button>
+    <div class="extra-details" style="display:none;">
+        <p>
+            <b>Solution:</b><br>
+            •	Biogas Production from Organic Waste:
+            o	Converting organic waste into biogas through anaerobic digestion is a sustainable solution. Biogas, primarily composed of methane, can be used as a renewable energy source for electricity generation, cooking, and heating. This not only helps in waste management but also provides a renewable energy source, reducing dependence on fossil fuels.
+
+            <b>Steps:</b><br>
+            1.	Collection of Organic Waste:
+Gather organic waste materials such as food scraps, agricultural residues, and animal manure.
+2Anaerobic Digestion in a Bioreactor:
+Place the collected organic waste in a sealed bioreactor (anaerobic digester). In this environment, bacteria break down the organic materials in the absence of oxygen, producing biogas.
+3Biogas Production:
+Allow bacteria to decompose the waste for several weeks. The process produces biogas, which is rich in methane, a combustible gas.
+4Utilizing Biogas for Energy Generation:
+The biogas can be collected and used as a fuel source for electricity generation or cooking. It can also be compressed and stored for use as a natural gas substitute in vehicles.
+
+            <b>Materials Used:</b><br>
+            •	Organic Waste Materials:
+Food scraps, animal manure, agricultural waste, and other biodegradable materials.
+•	Bioreactor (Anaerobic Digester):
+o	A sealed container or tank used for the anaerobic digestion process.
+•	Biogas Collection System:
+o	Pipes and storage tanks to capture and store the produced biogas.
+•	Energy Conversion Equipment:
+o	Generators or stoves to convert biogas into electricity or heat.
+
+            <br>
+            <b>Research Paper:</b><br>
+            <a href="https://doi.org/10.1016/j.cscee.2024.100618" target="_blank">Click here to read the full research paper</a>
+        </p>
+    </div><br>
+
+    <div class="project-card" data-category="EGSD">
+        <h3>4. Generating Electricity from Traffic Using Piezoelectric Materials</h3>
+        <p>
+            Problem:
+            • Wasted Energy from Traffic Movements: 
+            o Roads and traffic are a major source of constant mechanical energy, but much of it is wasted. Vehicles and pedestrians exert pressure on the ground, but this energy is often not captured. There’s a need for innovative solutions to harness this energy and convert it into usable electricity.
+        </p>
+        <button class="details-btn" onclick="toggleDetails(this)">Learn More</button>
+        <div class="extra-details" style="display:none;">
+            <p>
+                <b>Solution:</b><br>
+                • Piezoelectric Energy Harvesting:<br>
+                o By using piezoceramic materials placed under roads, sidewalks, or highways, mechanical energy from traffic pressure (caused by vehicles or pedestrians) can be converted into electrical energy. Piezoceramics generate electrical charges when subjected to mechanical stress, which can be stored or transmitted to the grid.<br><br>
+                <b>Steps:</b><br>
+                1. Install Piezoelectric Materials Under Roads or Pavements:<br>
+                o Special piezoelectric tiles or devices are embedded into road surfaces or sidewalks. These materials could be piezoceramic-based and are designed to withstand traffic loads while converting mechanical stress into electrical energy.<br>
+                2. Harness Pressure from Traffic:<br>
+                o As vehicles pass over or pedestrians walk on the piezoelectric devices, they apply pressure, which induces a mechanical strain on the piezoelectric materials, generating an electrical charge.<br>
+                3. Energy Storage and Distribution:<br>
+                o The generated electrical energy is either stored in batteries or directly transmitted to a local energy grid. For storage, energy can be stored in capacitors or battery systems, while the grid can receive the electricity for immediate use.<br><br>
+                <b>Materials Used:</b><br>
+                • Piezoceramic Materials:<br>
+                o These are the key materials used to convert mechanical stress into electrical energy. They are usually made from ceramics with piezoelectric properties, such as lead zirconate titanate (PZT) or barium titanate.<br>
+                • Energy Storage System:<br>
+                o Capacitors or batteries to store the harvested electrical energy.<br>
+                • Electric Grid or Local Network:<br>
+                o A system to transmit the stored electricity to where it is needed.<br><br>
+                <b>Advantages:</b><br>
+                1. Renewable Energy Source:<br>
+                o The system harnesses mechanical energy from everyday activities (traffic), turning it into a renewable energy source, reducing dependence on fossil fuels.<br>
+                2. Reduced Carbon Emissions:<br>
+                o By utilizing traffic energy, it contributes to the reduction of carbon emissions, helping reduce the environmental impact compared to traditional energy generation methods.<br>
+                3. Energy Harvesting in Urban Areas:<br>
+                o Urban areas, where traffic and pedestrian movement are constant, are ideal for installing piezoelectric systems to continuously harvest energy.<br>
+                4. Low Maintenance:<br>
+                o Once installed, piezoelectric systems are relatively low-maintenance compared to other renewable energy systems like solar panels or wind turbines.<br><br>
+                <b>Challenges:</b><br>
+                1. Low Energy Efficiency:<br>
+                o The amount of energy generated by piezoelectric materials is relatively small compared to the energy consumption needs of a city. A large number of devices would be needed to make a significant contribution to energy demands.<br>
+                2. High Installation Costs:<br>
+                o The initial cost of installing piezoelectric devices in roadways or pavements can be high. Additionally, retrofitting existing infrastructure may incur additional costs.<br>
+                3. Durability and Wear:<br>
+                o Piezoelectric devices need to withstand constant pressure from traffic, weather conditions, and environmental factors. Over time, the devices may wear out or become less effective.<br>
+                4. Complex Energy Storage:<br>
+                o Storing the generated electricity efficiently can be challenging. The intermittent nature of traffic flow makes it harder to store energy continuously, requiring large battery systems to buffer the energy.<br><br>
+                <b>Research Paper:</b><br>
+                <a href="https://doi.org/10.3390/en15093395" target="_blank">Click here to read the full research paper</a>
+            </p>
+        </div><br>
+        <div class="project-card" data-category="EGSD">
+            <h3>5. Green Hydrogen Production Using Solar Energy</h3>
+            <p>
+                Problem:
+                • Dependence on Fossil Fuels:
+                o The world is heavily reliant on fossil fuels for energy production, contributing to environmental pollution and climate change. There is a growing need for clean and renewable energy sources to replace fossil fuels and reduce carbon emissions.
+            </p>
+            <button class="details-btn" onclick="toggleDetails(this)">Learn More</button>
+            <div class="extra-details" style="display:none;">
+                <p>
+                    <b>Solution:</b><br>
+                    • Green Hydrogen Production Using Solar Energy:<br>
+                    o Green hydrogen can be produced by using solar energy to power electrolysis, a process where water (H₂O) is split into hydrogen (H₂) and oxygen (O₂). This process is clean and sustainable, as it uses renewable solar energy and produces hydrogen as a clean fuel, which can be used for energy generation or in various industrial applications.
+                    <br><br>
+                    <b>Steps:</b><br>
+                    1. Install Solar Panels:<br>
+                    o Set up solar panels to capture sunlight and convert it into electrical energy.<br>
+                    2. Electrolysis Process:<br>
+                    o Connect the solar panels to an electrolyzer. The electricity generated by the solar panels is used to split water molecules into hydrogen and oxygen through the process of electrolysis.<br>
+                    3. Hydrogen Storage:<br>
+                    o The produced hydrogen is stored in high-pressure tanks for future use as a clean energy source.<br><br>
+                    <b>Materials Used:</b><br>
+                    • Solar Panels: Photovoltaic panels to convert solar energy into electrical power.<br>
+                    • Electrolyzer: A device to split water molecules into hydrogen and oxygen using electricity.<br>
+                    • Hydrogen Storage Tanks: High-pressure storage tanks to store the hydrogen produced during the electrolysis process.<br>
+                    <br>
+                    <b>Research Paper:</b><br>
+                    <a href="https://www.acciona.com/green-hydrogen/" target="_blank">Click here to read the full research paper</a>
+                </p>
+            </div><br>
+
+            <div class="project-card" data-category="EGSD">
+                <h3>6. Electricity Generation Using Hydrogen Fuel Cells</h3>
+                <p>
+                    Problem:
+                    • Need for Clean and Efficient Energy:
+                    o The world faces the challenge of reducing carbon emissions from energy generation. Fossil fuels are non-renewable and contribute significantly to environmental pollution. There is a growing demand for alternative, cleaner, and more sustainable energy sources that can replace fossil fuels without harming the environment.
+                </p>
+                <button class="details-btn" onclick="toggleDetails(this)">Learn More</button>
+                <div class="extra-details" style="display:none;">
+                    <p>
+                        <b>Solution:</b><br>
+                        • Hydrogen Fuel Cells for Clean Electricity Generation:<br>
+                        o Hydrogen fuel cells provide a solution by generating electricity through the chemical reaction between hydrogen and oxygen, producing only water and heat as byproducts. This process is highly efficient and does not release harmful emissions, making it an ideal solution for clean energy production.
+                        <br><br>
+                        <b>Steps:</b><br>
+                        1. Extract Hydrogen via Electrolysis:<br>
+                        o Hydrogen is produced by electrolyzing water (H₂O) using electricity, which splits water molecules into hydrogen gas (H₂) and oxygen (O₂). This step can be powered by renewable sources like solar or wind energy, further enhancing the sustainability of the process.<br>
+                        2. Use Hydrogen in Fuel Cells:<br>
+                        o The hydrogen gas is introduced into hydrogen fuel cells, where it reacts with oxygen in the air. This electrochemical reaction produces electricity, water, and heat. The electricity can be used to power electrical devices, vehicles, or homes.<br>
+                        3. Energy Storage System:<br>
+                        o The generated electricity can be stored in batteries or capacitors for later use, or directly supplied to power the grid or specific devices.<br><br>
+                        <b>Materials Used:</b><br>
+                        • Hydrogen Fuel Cells: Devices that convert chemical energy from hydrogen into electrical energy through an electrochemical reaction with oxygen.<br>
+                        • Electrolyzer (for Water Splitting): A device used to split water into hydrogen and oxygen by applying electrical current.<br>
+                        • Hydrogen Storage Tanks: Pressurized containers used to store hydrogen gas for use in fuel cells.<br>
+                        <br>
+                        <b>Research Paper:</b><br>
+                        <a href="https://www.acciona.com/green-hydrogen/" target="_blank">Click here to read the full research paper</a>
+                    </p>
+                </div><br>
+
+        
+</div>
+    <div class="project-card" data-category="PLNT">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div>
+    <div class="project-card" data-category="TMED">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div>
+    <div class="project-card" data-category="SOFT">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div><div class="project-card" data-category="ROBO">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div>
+    <div class="project-card" data-category="MCRO">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div>
+    <div class="project-card" data-category="MATS">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div>
+    <div class="project-card" data-category="ENEV">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div>
+    <div class="project-card" data-category="ETSD">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div>
+    <div class="project-card" data-category="EAEV">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div>
+    <div class="project-card" data-category="CBIO">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div>
+    <div class="project-card" data-category="CHEM">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div>
+    <div class="project-card" data-category="CELL">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div>
+    <div class="project-card" data-category="ENBM">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div>
+    <div class="project-card" data-category="BMED">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div><div class="project-card" data-category="BCHM">
+        <h3>2. Exploring the Antibacterial Properties of Plant Extracts</h3>
+        <p>
+            Many plant species have antibacterial properties, but the molecular mechanisms behind their efficacy remain unknown.
+        </p>
+    </div>
+</div>
+<a href="index.html" class="back-to-home">Get Started</a>
+
+<script>
+   
+    // Function to toggle the visibility of the details
+    function toggleDetails(button) {
+        const extraDetails = button.nextElementSibling;
+
+        if (extraDetails.style.display === "none" || extraDetails.style.display === "") {
+            extraDetails.style.display = "block";
+            button.textContent = "Show Less";
+        } else {
+            extraDetails.style.display = "none";
+            button.textContent = "Learn More";
+        }
+    }
+
+    function filterProjects() {
+        const filterValue = document.getElementById('categoryFilter').value;
+        const projectCards = document.querySelectorAll('.project-card');
+
+        projectCards.forEach(card => {
+            if (filterValue === "all" || card.getAttribute('data-category') === filterValue) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            card.style.display = "none";
+        });
+    });
+</script>
+</body>
+</html>
