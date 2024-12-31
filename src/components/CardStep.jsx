@@ -9,7 +9,7 @@ export default function CardStep({ title, description }) {
           <h2>{title}</h2>
         </div>
         <div className="card__back absolute top-0 bottom-0 right-0 left-0 p-8 bg-blue-600 flex items-center justify-center">
-          <h2 className="text-lg text-slate-200">{description}</h2>
+          <h2 className="text-slate-200">{description}</h2>
         </div>
       </div>
     </div>
