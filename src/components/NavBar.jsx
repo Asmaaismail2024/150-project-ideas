@@ -127,10 +127,9 @@ export default function NavBar() {
             </button>
           </div>
           {navigation.map((item) => (
-            <DisclosureButton
+            <NavLink
               key={item.name}
-              as="a"
-              href={item.href}
+              to={item.href}
               aria-current={item.current ? "page" : undefined}
               className={classNames(
                 item.current
@@ -140,7 +139,7 @@ export default function NavBar() {
               )}
             >
               {item.name}
-            </DisclosureButton>
+            </NavLink>
           ))}
         </div>
       </DisclosurePanel>
