@@ -1,4 +1,4 @@
-# Live on ![https://150-project-ideas.netlify.app/](https://150-project-ideas.netlify.app/)
+# Live on [https://150-project-ideas.netlify.app/](https://150-project-ideas.netlify.app/)
 
 # Getting Started with Create React App
 
